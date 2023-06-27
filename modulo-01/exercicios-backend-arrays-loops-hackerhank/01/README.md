@@ -18,12 +18,13 @@ A saída deverá ser sempre uma string representando o nome purificado sem os se
 
 Sample Input 0
 
-´´´js
+```
 *Canis %lupus )familiaris
+```
+
 Sample Output 0
-´´´js
 
 
-´´´js
+```
 Canis lupus familiaris
-´´´js
+```
