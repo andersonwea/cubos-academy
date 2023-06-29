@@ -41,7 +41,17 @@ const cart = {
   },
 
   addProduct(product) {
-    this.products.push(...product)
+    const isAlreadyInCart = this.products.find(productInCart => {
+      if(productInCart.id === product.id) {
+        productInCart.qty += product.qty
+        return true
+      }
+    })
+
+    if(!isAlreadyInCart) {
+      this.products.push(product)
+      return
+    }
   },
 
   printDetails() {
@@ -52,9 +62,10 @@ const cart = {
 
     const productsDetail = this.products.reduce((productsDetail, product, index) => {
       const { name, qty, unitPrice } = product
-      const unitPriceInReal = convertPriceInReal(unitPrice)
+      const totalUnitPrice = unitPrice * qty
+      const totalUnitPriceInReal = convertPriceInReal(totalUnitPrice)
 
-      productsDetail.push({ detail: `Item ${index + 1} - ${name} - ${qty} und - ${unitPriceInReal}` })
+      productsDetail.push({ detail: `Item ${index + 1} - ${name} - ${qty} und - ${totalUnitPriceInReal}` })
 
       return productsDetail
     }, [])
@@ -101,7 +112,8 @@ const newSneaker = {
 }
 
 
-cart.addProduct([newShorts, newSneaker])
+cart.addProduct(newShorts)
+cart.addProduct(newSneaker)
 cart.printDetails()
 
 
