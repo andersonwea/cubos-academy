@@ -15,12 +15,18 @@ const cart = {
       }
   ],
   total() {
-    const { totalItems, totalToPay } = this.products.reduce((checkout, product) => {
+    let { totalItems, totalToPay } = this.products.reduce((checkout, product) => {
       checkout.totalItems += product.qty
       checkout.totalToPay += product.unitPrice * product.qty
-  
+      
       return checkout
     }, {totalItems: 0, totalToPay: 0})
+
+    const discount = this.calcDiscount(totalItems, totalToPay)
+
+    if(discount) {
+      totalToPay -= discount
+    }
 
     return {totalItems, totalToPay}
   },
@@ -81,9 +87,52 @@ const cart = {
         })}
 
         Total de itens: ${totalItems} itens
-        Total a pagar: ${totalToPayInReal}
+        Total a pagar:  ${totalToPayInReal}
       `
     )
+  },
+
+  calcDiscount(totalItems, totalToPay) {
+    let chepestProductInCart = this.products[0].unitPrice
+    let discounts = []
+
+    for(let product of this.products) {
+      if(product.unitPrice < chepestProductInCart) {
+        chepestProductInCart = product.unitPrice
+      }
+    }
+      
+    if(totalItems > 4) {
+      discounts.push({
+        name: 'oneIsFree',       
+        active: true,
+        discountValue: chepestProductInCart
+      })
+    }
+
+    if(totalToPay > 10000) {
+      const discountValue = totalToPay * 0.1
+
+      console.log(totalToPay)
+
+      discounts.push({
+          name: 'moreThan100',
+          active: true,
+          discountValue: discountValue
+      })
+    }
+
+    const betterDiscountToClient = discounts.reduce((maxDiscount, discount) => {
+      maxDiscount = discount.discountValue
+
+      if(discount > maxDiscount.discountValue) {
+        maxDiscount = discount
+      }
+
+      return maxDiscount
+    }, 0)
+
+    return betterDiscountToClient
   }
 }
 
@@ -95,7 +144,6 @@ function convertPriceInReal(priceInCents) {
 
   return priceInReal
 }
-
 
 const newShorts = {
   id: 2,
