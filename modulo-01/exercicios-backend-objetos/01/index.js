@@ -6,7 +6,7 @@ const address = {
   zipcode: '07995-256',
   city: 'São Paulo',
   state: 'São Paulo',
-  country: 'Brasil'
+  country: 'Brasil',
 }
 
 const user = {
@@ -14,5 +14,5 @@ const user = {
   email: 'john.doe@gmail.com',
   telephone: '11955632587',
   birthDate: '18-10-1995',
-  address: address
+  address,
 }

@@ -1,38 +1,38 @@
 const users = [
   {
-      name: "João",
-      pets: ["Max"],
+    name: 'João',
+    pets: ['Max'],
   },
   {
-      name: "Ana",
-      pets: ["Pingo", "Lulu"],
+    name: 'Ana',
+    pets: ['Pingo', 'Lulu'],
   },
   {
-      name: "Beatriz",
-      pets: ["Lessie"],
+    name: 'Beatriz',
+    pets: ['Lessie'],
   },
   {
-      name: "Carlos",
-      pets: ["Farofa", "Salsicha", "Batata"],
+    name: 'Carlos',
+    pets: ['Farofa', 'Salsicha', 'Batata'],
   },
   {
-      name: "Antonio",
-      pets: ["Naninha"],
+    name: 'Antonio',
+    pets: ['Naninha'],
   },
 ]
 
 function findPetOwner(users, petName) {
   let petOwner = ''
 
-  users.forEach(user => {
-    const found = !!user.pets.find(pet => pet === petName)
+  users.forEach((user) => {
+    const found = !!user.pets.find((pet) => pet === petName)
 
-    if(found) {
+    if (found) {
       petOwner = user.name
     }
   })
 
-  if(!petOwner) {
+  if (!petOwner) {
     return `Que pena ${petName} não encontramos seu dono(a)`
   }
 

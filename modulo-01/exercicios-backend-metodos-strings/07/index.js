@@ -17,14 +17,13 @@ const emails = [
 function validateEmail(email) {
   const regex = new RegExp(/^[^.].*@.*[^.]$/)
 
-  let isValidEmail = regex.test(email) 
+  const isValidEmail = regex.test(email)
 
-  if(!isValidEmail) {
+  if (!isValidEmail) {
     return 'E-mail inválido'
   }
-    
+
   return 'E-mail válido'
-  
 }
 
-emails.forEach(email => console.log(validateEmail(email)))
+emails.forEach((email) => console.log(validateEmail(email)))

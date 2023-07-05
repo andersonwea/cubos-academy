@@ -1,5 +1,5 @@
 function calcInterestRate(totalPaid, capital, months) {
-  const interestRate = (totalPaid / capital) ** (1 / months) - 1 
+  const interestRate = (totalPaid / capital) ** (1 / months) - 1
 
   return (interestRate * 100).toFixed(3)
 }

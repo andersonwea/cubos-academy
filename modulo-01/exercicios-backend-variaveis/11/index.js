@@ -1,5 +1,5 @@
 function calcSphereVolume(radius) {
-  const sphereVolume = 4 / 3  * (radius ** 3)
+  const sphereVolume = (4 / 3) * radius ** 3
 
   return sphereVolume
 }

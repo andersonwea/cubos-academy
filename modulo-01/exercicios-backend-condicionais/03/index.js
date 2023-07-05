@@ -1,12 +1,12 @@
-const ladoA = 3;
-const ladoB = 3;
+const ladoA = 3
+const ladoB = 3
 
-//seu código aqui
+// seu código aqui
 function isDouble(ladoA, ladoB) {
-  if(ladoA === ladoB) {
-    return "SIM"
+  if (ladoA === ladoB) {
+    return 'SIM'
   } else {
-    return "NÃO"
+    return 'NÃO'
   }
 }
 

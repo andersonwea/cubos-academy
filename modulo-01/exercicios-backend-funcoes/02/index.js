@@ -3,16 +3,16 @@ const car = {
   speed: 0,
 
   turnOn() {
-    if(this.on) {
+    if (this.on) {
       return `Esse carro já está ligado.`
     }
 
-    this.on = true;
+    this.on = true
     return `Carro ligado. Velocidade ${this.speed}.`
   },
 
   turnOff() {
-    if(!this.on) {
+    if (!this.on) {
       return `Esse carro já está desligado.`
     }
 
@@ -22,7 +22,7 @@ const car = {
   },
 
   speedUp() {
-    if(!this.on) {
+    if (!this.on) {
       return `Não é possível acelerar um carro desligado.`
     }
 
@@ -31,7 +31,7 @@ const car = {
   },
 
   speedDown() {
-    if(!this.on) {
+    if (!this.on) {
       return `Não é possível desacelerar um carro desligado.`
     }
 

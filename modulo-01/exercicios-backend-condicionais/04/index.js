@@ -1,5 +1,5 @@
-const ladoA = 3;
-const ladoB = 3;
+const ladoA = 3
+const ladoB = 3
 
 const doubleName = {
   0: 'Branco',
@@ -8,10 +8,10 @@ const doubleName = {
   3: 'Terno',
   4: 'Quadra',
   5: 'Quina',
-  6: 'Sena'
+  6: 'Sena',
 }
 
-//seu código aqui
+// seu código aqui
 function isDouble(ladoA, ladoB) {
   return ladoA === ladoB
 }
@@ -19,14 +19,13 @@ function isDouble(ladoA, ladoB) {
 function checkDoubleName(ladoA, ladoB) {
   const isDoubleResult = isDouble(ladoA, ladoB)
 
-  if(!isDoubleResult) return 'Não é BUCHA'
+  if (!isDoubleResult) return 'Não é BUCHA'
 
-  for(let double in doubleName) {
-    if(ladoA === +double) {
+  for (const double in doubleName) {
+    if (ladoA === +double) {
       return doubleName[double]
     }
   }
 }
 
 console.log(checkDoubleName(ladoA, ladoB))
-

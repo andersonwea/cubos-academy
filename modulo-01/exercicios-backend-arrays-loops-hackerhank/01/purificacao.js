@@ -1,22 +1,22 @@
 function solucao(stringCorrompida) {
-	const specialCharecters = ['!','@','#','$','%','&','*','(',')']
-  
+  const specialCharecters = ['!', '@', '#', '$', '%', '&', '*', '(', ')']
+
   let stringClean = ''
-  
-  for(let stringCharacter of stringCorrompida) {
+
+  for (const stringCharacter of stringCorrompida) {
     let found = false
-    
-    for(let specialCharacter of specialCharecters) {
-      if(stringCharacter === specialCharacter) {
+
+    for (const specialCharacter of specialCharecters) {
+      if (stringCharacter === specialCharacter) {
         found = true
       }
     }
 
-    if(!found) {
+    if (!found) {
       stringClean += stringCharacter
     }
-  }                        
-  
+  }
+
   console.log(stringClean)
 }
 

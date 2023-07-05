@@ -1,12 +1,12 @@
-const filaDeDentro = ["Jose", "Maria", "Joao"];
-const filaDeFora = ["Joana", "Roberta", "Marcos", "Felipe"];
+const filaDeDentro = ['Jose', 'Maria', 'Joao']
+const filaDeFora = ['Joana', 'Roberta', 'Marcos', 'Felipe']
 
 function queueControl(filaDeDentro, filaDeFora) {
-  while(filaDeDentro.length < 5) {
+  while (filaDeDentro.length < 5) {
     filaDeDentro.push(filaDeFora.shift())
   }
 
-  return {filaDeDentro, filaDeFora}
+  return { filaDeDentro, filaDeFora }
 }
 
 console.log(queueControl(filaDeDentro, filaDeFora))

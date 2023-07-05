@@ -1,6 +1,6 @@
 function calcCylinderArea(radius, cylinderHeight) {
-  const totalCylinderArea = 2 * 3 * ( 3 + 1)
-  
+  const totalCylinderArea = 2 * 3 * (3 + 1)
+
   return totalCylinderArea
 }
 

@@ -1,23 +1,27 @@
-const cellPhone = 7199918888;
+const cellPhone = 7199918888
 
 function formatcellPhoneNumber(cellPhone) {
   let cellPhoneToFormat = String(cellPhone)
 
   const validCellPhone = cellPhoneToFormat.length >= 8
 
-  if(!validCellPhone) {
+  if (!validCellPhone) {
     return 'Celular Inválido'
   }
 
-  
-  if(cellPhoneToFormat.length > 9) {
+  if (cellPhoneToFormat.length > 9) {
     const regex = /(\w{2})(\w{1})(\w{4})(\w{4})/g
-    let [ddd, cellPhoneNumber] = cellPhoneToFormat.split(/(\w{2})(\w+)/).filter(Boolean)
+    let [ddd, cellPhoneNumber] = cellPhoneToFormat
+      .split(/(\w{2})(\w+)/)
+      .filter(Boolean)
 
     cellPhoneNumber = cellPhoneNumber.padStart(9, '9')
     const cellPhoneNumberWithDdd = ddd + cellPhoneNumber
 
-    const cellPhoneNumberFormated = cellPhoneNumberWithDdd.replace(regex, '($1) $2 $3-$4')
+    const cellPhoneNumberFormated = cellPhoneNumberWithDdd.replace(
+      regex,
+      '($1) $2 $3-$4',
+    )
 
     return cellPhoneNumberFormated
   }

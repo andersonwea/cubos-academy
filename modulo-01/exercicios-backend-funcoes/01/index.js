@@ -1,38 +1,38 @@
 const test = {
-  student: "João",
-  subject: "Português",
+  student: 'João',
+  subject: 'Português',
   value: 10,
   questions: [
-      {
-          answer: "a",
-          correct: "b"
-      },
-      {
-          answer: "c",
-          correct: "c"
-      },
-      {
-          answer: "e",
-          correct: "b"
-      },
-      {
-          answer: "b",
-          correct: "b"
-      },
-      {
-          answer: "c",
-          correct: "c"
-      }
-  ]
+    {
+      answer: 'a',
+      correct: 'b',
+    },
+    {
+      answer: 'c',
+      correct: 'c',
+    },
+    {
+      answer: 'e',
+      correct: 'b',
+    },
+    {
+      answer: 'b',
+      correct: 'b',
+    },
+    {
+      answer: 'c',
+      correct: 'c',
+    },
+  ],
 }
 
 function checkTest(test) {
-  const { student, value, questions} = test
+  const { student, value, questions } = test
 
   const correctAnswers = questions.reduce((correctAnswer, answer) => {
     const isCorrect = answer.answer === answer.correct
 
-    if(isCorrect) {
+    if (isCorrect) {
       correctAnswer += 1
     }
 

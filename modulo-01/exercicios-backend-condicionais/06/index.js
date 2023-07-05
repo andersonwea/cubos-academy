@@ -1,20 +1,20 @@
-const alturaEmCm = 205;
+const alturaEmCm = 205
 
 const positions = {
   185: 'LÍBERO',
   195: 'PONTEIRO',
   205: 'OPOSTO',
-  Infinity: 'CENTRAL'
+  Infinity: 'CENTRAL',
 }
 
-//seu código aqui
+// seu código aqui
 function takePlayerPosition(alturaEmCm) {
-  if(alturaEmCm < 180) {
+  if (alturaEmCm < 180) {
     return '***REPROVADO***'
   }
 
-  for(let position in positions) {
-    if(alturaEmCm <= position) {
+  for (const position in positions) {
+    if (alturaEmCm <= position) {
       return positions[position]
     }
   }

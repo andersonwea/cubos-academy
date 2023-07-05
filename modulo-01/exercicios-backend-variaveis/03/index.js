@@ -3,7 +3,7 @@ function calcDiscount(productFinalValue, productWithoutDiscount) {
 
   const percentageDiscount = discountValue / productWithoutDiscount
 
-  return (percentageDiscount * 100).toFixed(2) 
+  return (percentageDiscount * 100).toFixed(2)
 }
 
 const cash = 80

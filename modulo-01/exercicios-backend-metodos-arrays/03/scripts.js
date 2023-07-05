@@ -1,5 +1,13 @@
-const cars = ['Ford Ká', 'Ranger', 'Hilux', 'Corola', 'Fusca', 'Chevete', 'Brasilia'];
-const position = 3;
+const cars = [
+  'Ford Ká',
+  'Ranger',
+  'Hilux',
+  'Corola',
+  'Fusca',
+  'Chevete',
+  'Brasilia',
+]
+const position = 3
 
 function carsGroup(cars, position) {
   const carGroup = cars.slice(position, position + 3)

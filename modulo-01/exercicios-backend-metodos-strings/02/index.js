@@ -1,8 +1,8 @@
-const cpf = "12345678900";
-const cnpj = "12345678000199";
+const cpf = '12345678900'
+const cnpj = '12345678000199'
 
 function formatCpf(cpf) {
-  if(cpf.length != 11) {
+  if (cpf.length != 11) {
     return 'CPF Inválido'
   }
 
@@ -14,7 +14,7 @@ function formatCpf(cpf) {
 }
 
 function formatCnpj(cnpj) {
-  if(cnpj.length != 14) {
+  if (cnpj.length != 14) {
     return 'CNPJ Inválido'
   }
 

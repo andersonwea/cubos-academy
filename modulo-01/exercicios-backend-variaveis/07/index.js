@@ -1,5 +1,6 @@
 function calcCasesCOVID(populationInfected, transmitionPerPerson, time) {
-  const populationInfectedAfterTime = populationInfected * (transmitionPerPerson ** (time / 7))
+  const populationInfectedAfterTime =
+    populationInfected * transmitionPerPerson ** (time / 7)
 
   return Math.round(populationInfectedAfterTime)
 }

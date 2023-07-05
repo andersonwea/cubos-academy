@@ -1,7 +1,7 @@
-const patients = ['José', 'Pedro', 'Maria', 'João', 'Ana', 'Bárbara', 'Joana'];
+const patients = ['José', 'Pedro', 'Maria', 'João', 'Ana', 'Bárbara', 'Joana']
 
 function schedulePatient(patients, name) {
-  const updatedQueue = patients.filter(patient => patient != name)
+  const updatedQueue = patients.filter((patient) => patient != name)
   updatedQueue.push(name)
 
   return updatedQueue.join(', ')
@@ -14,7 +14,7 @@ function attendPacient(patients) {
 }
 
 function cancelAppointment(patients, name) {
-  const updatedQueue = patients.filter(patient => patient != name)
+  const updatedQueue = patients.filter((patient) => patient != name)
 
   return updatedQueue.join(', ')
 }
@@ -22,4 +22,3 @@ function cancelAppointment(patients, name) {
 console.log(schedulePatient(patients, 'Ana'))
 console.log(attendPacient(patients))
 console.log(cancelAppointment(patients, 'Bárbara'))
-

@@ -1,9 +1,9 @@
-const numeros = [2, 3, 4, 6];
+const numeros = [2, 3, 4, 6]
 
 function getSum(numeros) {
   let sum = 0
 
-  for(number of numeros) {
+  for (number of numeros) {
     sum += number
   }
 

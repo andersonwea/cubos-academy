@@ -1,4 +1,4 @@
-const cardNumber = '1111222233334444';
+const cardNumber = '1111222233334444'
 
 function hiddenCardNumber(cardNumber) {
   const regex = /(\w{4})(\w{8})(\w{4})/g

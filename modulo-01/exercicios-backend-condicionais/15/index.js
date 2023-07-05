@@ -1,13 +1,13 @@
-const primeiroNome = "Mario";
-const sobrenome = "";
-const apelido = "grandão";
+const primeiroNome = 'Mario'
+const sobrenome = ''
+const apelido = 'grandão'
 
 function displayName(primeiroNome, sobrenome, apelido) {
-  if(!primeiroNome) {
+  if (!primeiroNome) {
     return 'Nome é um campo obrigatório'
-  } 
-  
-  if(apelido) {
+  }
+
+  if (apelido) {
     return apelido
   } else if (sobrenome) {
     return primeiroNome + ' ' + sobrenome

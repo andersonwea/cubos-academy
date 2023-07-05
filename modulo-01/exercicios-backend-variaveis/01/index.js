@@ -1,5 +1,5 @@
 function calcIMC(weight, height) {
-  const imc = weight / (height ** 2)
+  const imc = weight / height ** 2
 
   return imc.toFixed(1)
 }

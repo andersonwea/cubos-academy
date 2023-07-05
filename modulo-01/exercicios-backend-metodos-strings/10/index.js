@@ -1,11 +1,11 @@
-const nomeArquivo = 'Foto da Familia.png';
+const nomeArquivo = 'Foto da Familia.png'
 
 function isImage(nomeArquivo) {
   const allowedImages = ['gif', 'jpg', 'png', 'jpeg']
 
-  const result = !!allowedImages.find(ext => nomeArquivo.includes(ext))
+  const result = !!allowedImages.find((ext) => nomeArquivo.includes(ext))
 
-  if(!result) {
+  if (!result) {
     return 'Arquivo inválido'
   }
 

@@ -1,4 +1,4 @@
-const cpf = "011.022.033-44";
+const cpf = '011.022.033-44'
 
 function removeSpecialCaracters(cpf) {
   const regex = new RegExp(/\W|\D/g)
