@@ -2,12 +2,12 @@ import { z } from 'zod'
 import 'dotenv/config'
 
 const envSchema = z.object({
-  PORT: z.number().default(3333),
+  PORT: z.coerce.number().default(3333),
   PGHOST: z.string(),
   PGUSER: z.string(),
   PGPASSWORD: z.string(),
   PGDATABASE: z.string(),
-  PGPORT: z.number(),
+  PGPORT: z.coerce.number(),
 })
 
 const _env = envSchema.parse(process.env)
