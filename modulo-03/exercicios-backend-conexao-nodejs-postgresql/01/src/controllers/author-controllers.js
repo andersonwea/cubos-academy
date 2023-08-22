@@ -51,7 +51,15 @@ export async function getAuthor(request, response) {
   const { id } = result.data
 
   const query = `
-    SELECT * FROM authors WHERE id = $1
+    SELECT a.*,
+    JSON_AGG(
+      TO_JSON(b)
+    ) AS livros
+    FROM authors a
+    LEFT JOIN books b
+    ON a.id = b.author_id
+    WHERE a.id = $1
+    GROUP BY a.id
   `
 
   try {
@@ -63,6 +71,7 @@ export async function getAuthor(request, response) {
 
     return response.json(author.rows[0])
   } catch (err) {
-    return response.status(500).json({ message: err.message })
+    console.error(err.message)
+    return response.status(500).json()
   }
 }
