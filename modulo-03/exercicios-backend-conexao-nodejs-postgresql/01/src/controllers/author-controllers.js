@@ -7,7 +7,13 @@ export async function createAuthor(request, response) {
     age: z.number(),
   })
 
-  const { name, age } = createAuthorSchema.parse(request.body)
+  const result = createAuthorSchema.safeParse(request.body)
+
+  if (!result.success) {
+    return response.status(400).json(result.error.flatten())
+  }
+
+  const { name, age } = result.data
 
   const query = `
     INSERT INTO authors
