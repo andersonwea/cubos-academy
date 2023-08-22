@@ -48,3 +48,27 @@ export async function createBook(request, response) {
     return response.status(500).json()
   }
 }
+
+export async function listBooks(_request, response) {
+  const query = `
+    SELECT b.id,
+      b.name,
+      b.gender,
+      b.publishing_company,
+      b.published_at::text,
+      TO_JSONB(a) AS author
+    FROM books b
+    INNER JOIN authors a
+    ON b.author_id = a.id
+    GROUP BY b.id, a.id
+  `
+
+  try {
+    const books = await pool.query(query)
+
+    return response.json(books.rows)
+  } catch (err) {
+    console.error(err.message)
+    return response.status(500).send()
+  }
+}
