@@ -1,6 +1,8 @@
 import express from 'express'
-import { createAuthor } from '../controllers/author-controllers.js'
+import { createAuthor, getAuthor } from '../controllers/author-controllers.js'
 
 export const authorRoutes = express()
 
-authorRoutes.post('/autors', createAuthor)
+authorRoutes.post('/authors', createAuthor)
+
+authorRoutes.get('/authors/:id', getAuthor)
