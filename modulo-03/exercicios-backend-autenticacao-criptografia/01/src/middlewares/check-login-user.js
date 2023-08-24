@@ -1,9 +1,13 @@
 import jwt from 'jsonwebtoken'
 import { env } from '../env/index.js'
-
 export async function checkLoginUser(request, response, next) {
   const { authorization } = request.headers
 
+  if (!authorization) {
+    return response.status(401).json({ message: 'Token is required.' })
+  }
+
+  // eslint-disable-next-line no-unused-vars
   const [_, token] = authorization.split(' ')
 
   try {

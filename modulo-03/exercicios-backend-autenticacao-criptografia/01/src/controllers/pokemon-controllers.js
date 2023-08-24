@@ -45,3 +45,36 @@ export async function createPokemon(request, response) {
     return response.status(500).send()
   }
 }
+
+export async function updatePokemonNickname(request, response) {
+  const updatePokemonNicknameSchema = z.object({
+    nickname: z.string(),
+  })
+
+  const _nickName = updatePokemonNicknameSchema.safeParse(request.body)
+
+  if (_nickName.success === false) {
+    const message = _nickName.error.format()
+
+    return response.status(400).json({ message })
+  }
+
+  const { nickname } = _nickName.data
+  const { id } = request.params
+
+  const query = `
+    UPDATE pokemons
+    SET nickname = $1
+    WHERE id = $2
+  `
+
+  try {
+    await pool.query(query, [nickname, id])
+
+    return response.json({ message: 'Pokemon nickname atualized.' })
+  } catch (err) {
+    console.error(err.message)
+
+    return response.status(500).send()
+  }
+}
