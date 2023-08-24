@@ -106,3 +106,29 @@ export async function listPokemons(request, response) {
     return response.status(500).send()
   }
 }
+
+export async function listPokemonById(request, response) {
+  const { id } = request.params
+
+  const query = `
+    SELECT p.id,
+      u.name AS user,
+      p.name,
+      p.nickname,
+      ARRAY_AGG(p.skills) AS skills,
+      p.image
+    FROM pokemons p
+    INNER JOIN users u
+    ON p.user_id = u.id
+    WHERE p.id = $1
+    GROUP BY u.name, p.id
+  `
+
+  const pokemon = await pool.query(query, [id])
+
+  if (pokemon.rows.length === 0) {
+    return response.status(404).json({ message: 'Pokemon not found.' })
+  }
+
+  return response.json(pokemon.rows[0])
+}
