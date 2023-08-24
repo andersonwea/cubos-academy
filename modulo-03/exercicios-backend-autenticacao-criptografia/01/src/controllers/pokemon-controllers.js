@@ -78,3 +78,31 @@ export async function updatePokemonNickname(request, response) {
     return response.status(500).send()
   }
 }
+
+export async function listPokemons(request, response) {
+  const { user_id } = request.locals
+
+  const query = `
+    SELECT p.id,
+      u.name AS user,
+      p.name,
+      p.nickname,
+      ARRAY_AGG(p.skills) AS skills,
+      p.image
+    FROM pokemons p
+    INNER JOIN users u
+    ON p.user_id = u.id
+    WHERE user_id = $1
+    GROUP BY u.name, p.id
+  `
+
+  try {
+    const pokemons = await pool.query(query, [user_id])
+
+    return response.json(pokemons.rows)
+  } catch (err) {
+    console.error(err.message)
+
+    return response.status(500).send()
+  }
+}
