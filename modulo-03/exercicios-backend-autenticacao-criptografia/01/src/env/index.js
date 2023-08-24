@@ -11,6 +11,8 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 const envSchema = z.object({
+  PORT: z.coerce.number().default(3333),
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('production'),
   PGHOST: z.string(),
   PGPORT: z.coerce.number(),
   PGDATABASE: z.string(),
@@ -18,7 +20,7 @@ const envSchema = z.object({
   PGPASSWORD: z.string(),
 })
 
-const _env = envSchema.parse(process.env)
+const _env = envSchema.safeParse(process.env)
 
 if (_env.sucess === false) {
   console.error('Invalid environment variables.', _env.error.format())
