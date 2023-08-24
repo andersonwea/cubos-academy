@@ -92,12 +92,11 @@ export async function listPokemons(request, response) {
     FROM pokemons p
     INNER JOIN users u
     ON p.user_id = u.id
-    WHERE user_id = $1
     GROUP BY u.name, p.id
   `
 
   try {
-    const pokemons = await pool.query(query, [user_id])
+    const pokemons = await pool.query(query)
 
     return response.json(pokemons.rows)
   } catch (err) {
@@ -131,4 +130,23 @@ export async function listPokemonById(request, response) {
   }
 
   return response.json(pokemon.rows[0])
+}
+
+export async function deletePokemon(request, response) {
+  const { id } = request.params
+
+  const query = `
+    DELETE FROM pokemons
+    WHERE id = $1
+  `
+
+  try {
+    await pool.query(query, [id])
+
+    return response.json({ message: 'Pokemon deleted.' })
+  } catch (err) {
+    console.error(err.message)
+
+    return response.status(500).send()
+  }
 }

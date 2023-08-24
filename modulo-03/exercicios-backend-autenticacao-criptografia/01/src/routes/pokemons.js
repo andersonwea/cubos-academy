@@ -1,6 +1,7 @@
 import express from 'express'
 import {
   createPokemon,
+  deletePokemon,
   listPokemonById,
   listPokemons,
   updatePokemonNickname,
@@ -13,3 +14,4 @@ pokemonRoutes.post('/pokemons', createPokemon)
 pokemonRoutes.patch('/pokemons/:id', checkParamsId, updatePokemonNickname)
 pokemonRoutes.get('/pokemons', listPokemons)
 pokemonRoutes.get('/pokemons/:id', checkParamsId, listPokemonById)
+pokemonRoutes.delete('/pokemons/:id', checkParamsId, deletePokemon)
