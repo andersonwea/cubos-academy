@@ -92,7 +92,7 @@ export async function loginUser(request, response) {
 
     const token = jwt.sign(
       {
-        id: user.rows.id,
+        id: user.rows[0].id,
       },
       env.JWT_SECRET,
       {
