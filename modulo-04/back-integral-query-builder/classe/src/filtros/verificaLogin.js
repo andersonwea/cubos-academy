@@ -1,34 +1,34 @@
-const conexao = require('../conexao');
-const jwt = require('jsonwebtoken');
-const senhaHash = require('../senhaHash');
+const jwt = require('jsonwebtoken')
+const { UsuariosRepositorio } = require('../repositorios/usuarios-repositorio')
 
 const verificaLogin = async (req, res, next) => {
-    const { authorization } = req.headers;
+  const { authorization } = req.headers
 
-    if (!authorization) {
-        return res.status(401).json('Não autorizado');
+  if (!authorization) {
+    return res.status(401).json('Não autorizado')
+  }
+
+  const usuariosRepositorio = new UsuariosRepositorio()
+
+  try {
+    const token = authorization.replace('Bearer ', '').trim()
+
+    const { id } = jwt.verify(token, process.env.JWT_SECRET)
+
+    const { usuario } = await usuariosRepositorio.encontrarPeloId(id)
+
+    if (!usuario) {
+      return res.status(404).json('Usuario não encontrado')
     }
 
-    try {
-        const token = authorization.replace('Bearer ', '').trim();
+    delete usuario.senha
 
-        const { id } = jwt.verify(token, senhaHash);
+    req.usuario = usuario
 
-        const query = 'select * from usuarios where id = $1';
-        const { rows, rowCount } = await conexao.query(query, [id]);
-
-        if (rowCount === 0) {
-            return res.status(404).json('Usuario não encontrado');
-        }
-
-        const { senha, ...usuario } = rows[0];
-
-        req.usuario = usuario;
-
-        next();
-    } catch (error) {
-        return res.status(400).json(error.message);
-    }
+    next()
+  } catch (error) {
+    return res.status(500).json({ mensagem: 'Erro interno no servidor.' })
+  }
 }
 
 module.exports = verificaLogin
