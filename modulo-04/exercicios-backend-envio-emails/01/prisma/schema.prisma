@@ -11,7 +11,8 @@ datasource db {
 }
 
 model User {
-  name  String @id @default(uuid())
+  id    String @id @default(uuid())
+  name  String
   email String @unique
 
   @@map("users")
