@@ -2,6 +2,7 @@ import 'dotenv/config'
 import { z } from 'zod'
 
 const envSchema = z.object({
+  NODE_ENV: z.enum(['development', 'production']).default('development'),
   DATABASE_URL: z.string(),
   SMTP_HOST: z.string(),
   SMTP_PORT: z.coerce.number(),
