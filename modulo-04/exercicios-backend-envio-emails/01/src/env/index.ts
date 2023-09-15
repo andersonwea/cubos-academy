@@ -4,7 +4,7 @@ import { z } from 'zod'
 const envSchema = z.object({
   DATABASE_URL: z.string(),
   SMTP_HOST: z.string(),
-  SMTP_PORT: z.number(),
+  SMTP_PORT: z.coerce.number(),
   SMTP_USER: z.string(),
   SMTP_PASS: z.string(),
 })
