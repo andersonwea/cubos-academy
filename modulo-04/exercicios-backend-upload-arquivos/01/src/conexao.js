@@ -1,11 +1,11 @@
 const knex = require('knex')({
-    client: 'pg',
-    connection: {
-        host: 'localhost',
-        user: 'postgres',
-        password: 'postgres',
-        database: 'loja_virtual'
-    }
-});
+  client: 'pg',
+  connection: {
+    host: process.env.PG_HOST,
+    user: process.env.PG_USERNAME,
+    password: process.env.PG_PASSWORD,
+    database: process.env.PG_DATABASE,
+  },
+})
 
-module.exports = knex;
+module.exports = knex
