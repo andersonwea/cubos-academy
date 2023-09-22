@@ -1,7 +1,6 @@
 const knex = require('../conexao')
-const {
-  uploadArquivoParaBucket,
-} = require('../utils/upload-arquivo-para-bucket')
+const { deleteImagemBucket } = require('../utils/delete-imagem-bucket')
+const { uploadImagemBucket } = require('../utils/upload-imagem-bucket')
 
 const listarProdutos = async (req, res) => {
   const { usuario } = req
@@ -66,7 +65,7 @@ const cadastrarProduto = async (req, res) => {
   }
 
   try {
-    const imagemUrl = await uploadArquivoParaBucket(imagem)
+    const imagemUrl = uploadImagemBucket(imagem)
 
     const produto = await knex('produtos')
       .insert({
@@ -93,9 +92,9 @@ const cadastrarProduto = async (req, res) => {
 const atualizarProduto = async (req, res) => {
   const { usuario } = req
   const { id } = req.params
-  const { nome, estoque, preco, categoria, descricao, imagem } = req.body
+  const { nome, estoque, preco, categoria, descricao } = req.body
 
-  if (!nome && !estoque && !preco && !categoria && !descricao && !imagem) {
+  if (!nome && !estoque && !preco && !categoria && !descricao) {
     return res
       .status(404)
       .json('Informe ao menos um campo para atualizaçao do produto')
@@ -119,7 +118,6 @@ const atualizarProduto = async (req, res) => {
       preco,
       categoria,
       descricao,
-      imagem,
     })
 
     if (!produto) {
@@ -165,10 +163,39 @@ const excluirProduto = async (req, res) => {
   }
 }
 
+const atualizarImagem = async (req, res) => {
+  const { usuario } = req
+  const { id } = req.params
+  const imagem = req.file
+
+  const produto = await knex('produtos')
+    .where({
+      id,
+      usuario_id: usuario.id,
+    })
+    .first()
+
+  await deleteImagemBucket(produto.imagem)
+
+  const imagemUrl = await uploadImagemBucket(imagem)
+
+  await knex('produtos')
+    .where({
+      id,
+      usuario_id: usuario.id,
+    })
+    .update({
+      imagem: imagemUrl,
+    })
+
+  return res.json('Imagem do produto atualizada.')
+}
+
 module.exports = {
   listarProdutos,
   obterProduto,
   cadastrarProduto,
   atualizarProduto,
   excluirProduto,
+  atualizarImagem,
 }

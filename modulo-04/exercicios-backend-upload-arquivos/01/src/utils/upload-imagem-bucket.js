@@ -3,7 +3,7 @@ const { randomUUID } = require('node:crypto')
 const { extname } = require('node:path')
 const { s3Client } = require('../lib/s3Service')
 
-async function uploadArquivoParaBucket(arquivo) {
+async function uploadImagemBucket(arquivo) {
   if (!arquivo) {
     return null
   }
@@ -40,4 +40,4 @@ async function uploadArquivoParaBucket(arquivo) {
   return imagemUrl.toString()
 }
 
-module.exports = { uploadArquivoParaBucket }
+module.exports = { uploadImagemBucket }
