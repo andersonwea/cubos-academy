@@ -65,8 +65,6 @@ const cadastrarProduto = async (req, res) => {
   }
 
   try {
-    const imagemUrl = uploadImagemBucket(imagem)
-
     const produto = await knex('produtos')
       .insert({
         usuario_id: usuario.id,
@@ -75,6 +73,18 @@ const cadastrarProduto = async (req, res) => {
         preco,
         categoria,
         descricao,
+      })
+      .returning('*')
+
+    const produtoId = produto[0].id
+
+    const imagemUrl = await uploadImagemBucket(imagem, produtoId)
+
+    const produtoAtualizado = await knex('produtos')
+      .where({
+        id: produtoId,
+      })
+      .update({
         imagem: imagemUrl,
       })
       .returning('*')
@@ -83,7 +93,7 @@ const cadastrarProduto = async (req, res) => {
       return res.status(400).json('O produto não foi cadastrado')
     }
 
-    return res.status(200).json(produto)
+    return res.status(200).json(produtoAtualizado[0])
   } catch (error) {
     return res.status(400).json(error.message)
   }
@@ -175,9 +185,13 @@ const atualizarImagem = async (req, res) => {
     })
     .first()
 
-  await deleteImagemBucket(produto.imagem)
+  if (!produto) {
+    return res.status(404).json('Produto não encontrado.')
+  }
 
-  const imagemUrl = await uploadImagemBucket(imagem)
+  await deleteImagemBucket(produto)
+
+  const imagemUrl = await uploadImagemBucket(imagem, produto.id)
 
   await knex('produtos')
     .where({
@@ -191,6 +205,35 @@ const atualizarImagem = async (req, res) => {
   return res.json('Imagem do produto atualizada.')
 }
 
+const deletarImagem = async (req, res) => {
+  const { usuario } = req
+  const { id } = req.params
+
+  const produto = await knex('produtos')
+    .where({
+      id,
+      usuario_id: usuario.id,
+    })
+    .first()
+
+  if (!produto) {
+    return res.status(404).json('Produto não encontrado.')
+  }
+
+  await deleteImagemBucket(produto)
+
+  await knex('produtos')
+    .where({
+      id,
+      usuario_id: usuario.id,
+    })
+    .update({
+      imagem: null,
+    })
+
+  return res.status(204).send()
+}
+
 module.exports = {
   listarProdutos,
   obterProduto,
@@ -198,4 +241,5 @@ module.exports = {
   atualizarProduto,
   excluirProduto,
   atualizarImagem,
+  deletarImagem,
 }

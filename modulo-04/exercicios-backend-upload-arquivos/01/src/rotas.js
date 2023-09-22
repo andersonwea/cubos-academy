@@ -26,10 +26,12 @@ rotas.get('/produtos/:id', produtos.obterProduto)
 rotas.post('/produtos', upload.single('imagem'), produtos.cadastrarProduto)
 rotas.put('/produtos/:id', produtos.atualizarProduto)
 rotas.delete('/produtos/:id', produtos.excluirProduto)
+
 rotas.patch(
   '/produtos/:id/imagem',
   upload.single('imagem'),
   produtos.atualizarImagem,
 )
+rotas.delete('/produtos/:id/imagem', produtos.deletarImagem)
 
 module.exports = rotas

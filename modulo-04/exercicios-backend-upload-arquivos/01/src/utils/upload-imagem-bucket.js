@@ -3,28 +3,28 @@ const { randomUUID } = require('node:crypto')
 const { extname } = require('node:path')
 const { s3Client } = require('../lib/s3Service')
 
-async function uploadImagemBucket(arquivo) {
-  if (!arquivo) {
+async function uploadImagemBucket(imagem, produtoId) {
+  if (!imagem) {
     return null
   }
 
   const mimeTypeRegex = /^(image)\/[a-zA-Z]+/
 
-  const formatoValido = mimeTypeRegex.test(arquivo.mimetype)
+  const formatoValido = mimeTypeRegex.test(imagem.mimetype)
 
   if (!formatoValido) {
     throw new Error('Formato inválido.')
   }
 
   const idArquivo = randomUUID()
-  const extensao = extname(arquivo.originalname)
+  const extensao = extname(imagem.originalname)
 
-  const nomeArquivo = idArquivo.concat(extensao)
+  const nomeImagem = idArquivo.concat(extensao)
 
   const comando = new PutObjectCommand({
     Bucket: process.env.AWS_BUCKET_NAME,
-    Key: nomeArquivo,
-    Body: arquivo.buffer,
+    Key: `produto/${produtoId}/${nomeImagem}`,
+    Body: imagem.buffer,
   })
 
   const response = await s3Client.send(comando)
@@ -35,7 +35,7 @@ async function uploadImagemBucket(arquivo) {
 
   const imagemUrl = new URL(process.env.AWS_BASE_URL)
 
-  imagemUrl.pathname = nomeArquivo
+  imagemUrl.pathname = `produto/${produtoId}/${nomeImagem}`
 
   return imagemUrl.toString()
 }
